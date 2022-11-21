@@ -1,9 +1,11 @@
-import { Text, View } from "react-native"
+import { Text, View , Button } from "react-native"
+import useStore from "../../store"
 
 const Home = ()=>{
+    
     return (
         <View>
-            <Text>adhfadf</Text>
+            <Text>home</Text>
         </View>
     )
 }
