@@ -1,11 +1,10 @@
-import { Text, View , Button } from "react-native"
+import { Text, View, Button } from "react-native"
 import useStore from "../../store"
 
-const Home = ()=>{
-    
+const Home = () => {
     return (
         <View>
-            <Text>home</Text>
+            <Text>heheheh</Text>
         </View>
     )
 }
