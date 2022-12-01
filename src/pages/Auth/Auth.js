@@ -46,6 +46,7 @@ const Auth = () => {
                   })
                   .then(function (response) {
                     setCurrentUser(response.data.user)
+                    console.log(response.data);
                   })
                   .catch(function (error) {
                     console.log(error);

@@ -6,6 +6,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { Dimensions } from 'react-native';
 import { Chating } from "../Chating/Chating";
+import { Profile } from "../Profile/Profile";
 
 // import * as React from 'react'
 
@@ -39,10 +40,9 @@ const Navigator = () => {
                     ),
                 }}
             />
-
             <BottomTab.Screen
                 name="Profile"
-                component={Home}
+                component={Profile}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <Feather style={[styles.bottomTabIcon, focused && styles.bottomTabIconFocused]} name="user" size={24} color="black" />
