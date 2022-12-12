@@ -10,6 +10,15 @@ const BoxChat = ({ chat, setSendMessage, currentUser, receivedMessage }) => {
     const windowHeight = Dimensions.get('window').height;
     const [userData, setUserData] = useState(null)
     const [messages, setMessages] = useState([])
+    const [newMessage, setNewMessage] = useState("")
+
+
+    useEffect(() => {
+        if (receivedMessage !== null && receivedMessage.chatId === chat._id) {
+          setMessages([...messages, receivedMessage]);
+        }
+      }, [receivedMessage])
+
 
     useEffect(() => {
         const userId = chat?.members?.find((id) => id !== currentUser)
@@ -38,6 +47,31 @@ const BoxChat = ({ chat, setSendMessage, currentUser, receivedMessage }) => {
                 console.log(error);
             })
     }, [])
+
+    const onChangeNewMessage = (newMessage) => {
+        setNewMessage(newMessage)
+    }
+
+    const handleSend = () => {
+        const message = {
+            senderId: currentUser,
+            text: newMessage,
+            chatId: chat._id
+        }
+        axios.post(env.API_URL + '/message' , message)
+            .then(function (response) {
+                // handle success
+                setMessages([...messages , response.data])
+                setNewMessage("")
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+
+        const receiverId = chat.members.find((id) => id !== currentUser)
+        setSendMessage({...message , receiverId})
+    }
     return (
         <View style={{
             borderRadius: 10,
@@ -58,8 +92,8 @@ const BoxChat = ({ chat, setSendMessage, currentUser, receivedMessage }) => {
                     paddingLeft: 10,
                     paddingRight: 10,
                 }}>
-                    {messages.map((message) => (
-                        <View style={message.senderId === currentUser ? styles.messageSend : styles.messageGive}>
+                    {messages.map((message, id) => (
+                        <View key={id} style={message.senderId === currentUser ? styles.messageSend : styles.messageGive}>
                             <Text style={{ color: "white" }}>{message.text}</Text>
                             <Text style={{ color: "white", marginTop: 5, fontSize: 10 }}>
                                 {moment.utc(message.createdAt).local().startOf('seconds').fromNow()}
@@ -87,14 +121,16 @@ const BoxChat = ({ chat, setSendMessage, currentUser, receivedMessage }) => {
                         padding: 20,
                         marginRight: 10
                     }}
-                    // onChangeText={onChangeUsername}
-                    placeholder="Username"
-                    value="124125123"
+                    onChangeText={onChangeNewMessage}
+                    placeholder="Say something"
+                    value={newMessage}
                 />
-                <Ionicons style={{
-                    flex: 1,
-                    color: "orange"
-                }} name="send" size={24} color="black" />
+                <Ionicons
+                    onPress={handleSend}
+                    style={{
+                        flex: 1,
+                        color: "orange"
+                    }} name="send" size={24} color="black" />
             </View>
 
         </View>
@@ -109,7 +145,8 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 20,
         borderTopLeftRadius: 20,
         borderBottomLeftRadius: 20,
-        maxWidth: 180
+        maxWidth: 180,
+        marginBottom : 1
     },
     messageGive: {
         padding: 10,
@@ -118,7 +155,8 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 20,
         borderTopLeftRadius: 20,
         borderBottomRightRadius: 20,
-        maxWidth: 180
+        maxWidth: 180,
+        marginBottom : 1
     }
 });
 

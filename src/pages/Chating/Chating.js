@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Text, View, Button, Image, TouchableOpacity } from "react-native"
 import { Dimensions } from 'react-native'
 import BoxChat from "../../components/BoxChat/BoxChat";
@@ -8,6 +8,7 @@ import useStore from "../../store";
 import axios from "axios";
 import ListUserChat from "../../components/ListUserChat/ListUserChat";
 import { Ionicons } from '@expo/vector-icons';
+import { io } from "socket.io-client"
 export const Chating = ({ navigation }) => {
   const windowWidth = Dimensions.get('window').width;
   const [status, setStatus] = useState(false)
@@ -16,6 +17,17 @@ export const Chating = ({ navigation }) => {
   const [chats, setChats] = useState([])
   const [sendMessage, setSendMessage] = useState(null);
   const [receivedMessage, setReceivedMessage] = useState(null);
+  const [onlineUsers, setOnlineUsers] = useState([])
+
+  const socket = useRef()
+
+  useEffect(() => {
+    socket.current = io('https://socketio-chating.onrender.com')
+    socket.current.emit("new-user-add", currentUser._id)
+    socket.current.on('get-users', (users) => {
+      setOnlineUsers(users)
+    })
+  }, [])
 
   useEffect(() => {
     axios.get(env.API_URL + '/chat/' + currentUser._id)
@@ -27,6 +39,19 @@ export const Chating = ({ navigation }) => {
         console.log(error);
       })
   }, [])
+  useEffect(() => {
+    if (sendMessage !== null) {
+      socket.current.emit('send-message', sendMessage)
+    }
+  }, [sendMessage])
+
+  // Get the message from socket server
+  useEffect(() => {
+    socket.current.on("recieve-message", (data) => {
+      setReceivedMessage(data);
+    }
+    );
+  }, []);
 
   if (!status) {
     return (
@@ -37,13 +62,13 @@ export const Chating = ({ navigation }) => {
         }}>Chating</Text>
 
         <View style={{ width: "100%" }}>
-          {chats.map((chat , i) => (
+          {chats.map((chat, i) => (
             <TouchableOpacity
-            key={i}
-            onPress={() => {
-              setStatus(!status)
-              setCurrentChat(chat)
-            }}>
+              key={i}
+              onPress={() => {
+                setStatus(!status)
+                setCurrentChat(chat)
+              }}>
               <ListUserChat
                 data={chat}
                 currentUser={currentUser._id}
@@ -61,7 +86,7 @@ export const Chating = ({ navigation }) => {
         padding: 10
       }}>
         <TouchableOpacity onPress={() => setStatus(!status)}>
-          <Ionicons style={{color:"orange"}} name="ios-arrow-back-sharp" size={24} color="black" />
+          <Ionicons style={{ color: "orange" }} name="ios-arrow-back-sharp" size={24} color="black" />
         </TouchableOpacity>
 
         <BoxChat
