@@ -11,7 +11,7 @@ const AppStyle = StyleSheet.create({
   },
   blur: {
     position: "absolute",
-    borderRadius: "50%",
+    borderRadius: 50,
     backgroundColor: "#a6ddf0",
   },
   button: {
@@ -20,7 +20,6 @@ const AppStyle = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 10,
-    // elevation: 3,
     backgroundColor: '#f9822d',
   },
   textButton : {

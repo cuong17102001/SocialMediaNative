@@ -7,6 +7,7 @@ import { Feather } from '@expo/vector-icons';
 import { Dimensions } from 'react-native';
 import { Chating } from "../Chating/Chating";
 import { Profile } from "../Profile/Profile";
+import BoxChat from "../../components/BoxChat/BoxChat";
 
 // import * as React from 'react'
 
@@ -58,7 +59,9 @@ const Navigator = () => {
                     ),
                 }}
             />
+             {/* <BottomTab.Screen name="BoxChat" component={BoxChat} /> */}
         </BottomTab.Navigator>
+        
     )
 }
 

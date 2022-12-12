@@ -28,7 +28,10 @@ const Home = () => {
     return (
         <View style={{ alignItems: "center" }}>
             <Header />
-            <ScrollView style={{ width: windowWidth, height: windowHeigh }}>
+            <ScrollView
+            // contentOffset={{x:0 , y:500}}
+            endFillColor="pink"
+            style={{ width: windowWidth, height: windowHeigh }}>
                 <ShareCard />
                 <Posts />
             </ScrollView>

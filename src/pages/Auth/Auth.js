@@ -39,6 +39,7 @@ const Auth = () => {
                 }
             }
         }else{
+            console.log(env.API_URL);
             if (username && password) {
                 axios.post(env.API_URL+'/auth/login', {
                     username: username,
