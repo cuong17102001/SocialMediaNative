@@ -19,6 +19,8 @@ export const Chating = ({ navigation }) => {
   const [receivedMessage, setReceivedMessage] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState([])
 
+  const [chatingUser , setChatingUser] = useState([])
+
   const socket = useRef()
 
   useEffect(() => {
@@ -52,13 +54,14 @@ export const Chating = ({ navigation }) => {
     }
     );
   }, []);
-
+  
   if (!status) {
     return (
       <View style={{ width: windowWidth, justifyContent: "center", alignItems: "center", paddingTop: 25 }}>
         <Text style={{
           fontSize: 30,
-          fontWeight: "bold"
+          fontWeight: "bold",
+          color:"orange"
         }}>Chating</Text>
 
         <View style={{ width: "100%" }}>
@@ -82,7 +85,7 @@ export const Chating = ({ navigation }) => {
     return (
       <View style={{
         width: windowWidth,
-        marginTop: 40,
+        marginTop: 60,
         padding: 10
       }}>
         <TouchableOpacity onPress={() => setStatus(!status)}>

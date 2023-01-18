@@ -13,6 +13,7 @@ const Home = () => {
 
     const currentUser = useStore((state) => state.currentUser)
     const setListPosts = useStore((state) => state.setListPosts)
+    const listPosts = useStore((state) => state.listPosts)
 
     useEffect(() => {
         axios.get(env.API_URL+'/post/'+currentUser._id+"/timeline")
@@ -33,7 +34,7 @@ const Home = () => {
             endFillColor="pink"
             style={{ width: windowWidth, height: windowHeigh }}>
                 <ShareCard />
-                <Posts />
+                <Posts listPosts={listPosts}/>
             </ScrollView>
         </View>
     )

@@ -11,7 +11,7 @@ const BoxChat = ({ chat, setSendMessage, currentUser, receivedMessage }) => {
     const [userData, setUserData] = useState(null)
     const [messages, setMessages] = useState([])
     const [newMessage, setNewMessage] = useState("")
-
+    console.log();
 
     useEffect(() => {
         if (receivedMessage !== null && receivedMessage.chatId === chat._id) {
@@ -75,7 +75,7 @@ const BoxChat = ({ chat, setSendMessage, currentUser, receivedMessage }) => {
     return (
         <View style={{
             borderRadius: 10,
-            height: windowHeight - 130
+            height: windowHeight - 170
         }}>
             <View style={{
                 backgroundColor: "white",

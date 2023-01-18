@@ -4,6 +4,9 @@ const useStore = create((set) => ({
   currentUser: null,
   setCurrentUser: (data) => set((state) => ({ currentUser: data })),
 
+  userProfile : null,
+  setUserProfile: (data) => set((state) => ({ userProfile: data })),
+
   listPosts : [],
   setListPosts : (data) => set((state) => ({ listPosts: data })),
 

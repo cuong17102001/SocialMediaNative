@@ -9,13 +9,13 @@ export const Header = () => {
 
   return (
     <View style={{ 
-      height: 80, 
+      height: 100, 
       borderBottomColor: "#c4c4c4", 
       borderBottomWidth: 1, 
       width: windowWidth,
       flexDirection : "row",
       justifyContent : "space-between",
-      paddingTop : 20,
+      paddingTop : 40,
       backgroundColor : "#fafafa"
     }}>
       <View style={{flexDirection: "row" , justifyContent : "center" , alignItems :"center" , marginLeft : 20}}>

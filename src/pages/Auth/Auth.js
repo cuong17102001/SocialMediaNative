@@ -31,7 +31,6 @@ const Auth = () => {
                       })
                       .then(function (response) {
                         setAuthPage(false)
-                        console.log(response.data);
                       })
                       .catch(function (error) {
                         console.log(error);
@@ -39,7 +38,6 @@ const Auth = () => {
                 }
             }
         }else{
-            console.log(env.API_URL);
             if (username && password) {
                 axios.post(env.API_URL+'/auth/login', {
                     username: username,
@@ -47,7 +45,6 @@ const Auth = () => {
                   })
                   .then(function (response) {
                     setCurrentUser(response.data.user)
-                    console.log(response.data);
                   })
                   .catch(function (error) {
                     console.log(error);
@@ -91,6 +88,7 @@ const Auth = () => {
                     value={username}
                 />
                 <TextInput
+                    secureTextEntry={true}
                     style={AppStyle.input}
                     onChangeText={onChangePassword}
                     placeholder="Pasword"
@@ -99,6 +97,7 @@ const Auth = () => {
 
                 {authPage ?
                     <TextInput
+                        secureTextEntry={true}
                         style={AppStyle.input}
                         onChangeText={onChangeConfirm}
                         placeholder="Confirm Password"

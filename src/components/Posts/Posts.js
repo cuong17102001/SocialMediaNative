@@ -3,8 +3,7 @@ import { View } from 'react-native'
 import useStore from '../../store'
 import { Post } from '../Post/Post'
 
-export const Posts = () => {
-    const listPosts = useStore((state) => state.listPosts)
+export const Posts = ({listPosts}) => {
     return (
         <View style={{
             width: "auto",
